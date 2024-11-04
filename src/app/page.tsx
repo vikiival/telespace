@@ -1,0 +1,87 @@
+'use client';
+
+import { Section, Cell, Image, List, Title } from '@telegram-apps/telegram-ui';
+import { useTranslations } from 'next-intl';
+import { useSignal, initData, type User } from '@telegram-apps/sdk-react';
+
+import { Link } from '@/components/Link/Link';
+import { LocaleSwitcher } from '@/components/LocaleSwitcher/LocaleSwitcher';
+import { Page } from '@/components/Page';
+
+import tonSvg from './_assets/spacecoin.svg';
+import { use, useMemo } from 'react'
+
+export default function Home() {
+  const t = useTranslations('i18n');
+  const initDataState = useSignal(initData.state);
+
+  const userName = useMemo<string | undefined>(() => {
+    return initDataState && initDataState.user
+      ? initDataState.user.username
+      : undefined;
+  }, [initDataState]);
+
+  return (
+    <Page back={false}>
+      <List>
+        <Section
+          header={
+            <Section.Header large>Welcome, voyager {userName}</Section.Header>
+          }
+          footer={
+            <Section.Footer centered>
+              Your current balance
+              <Title>0 SPC</Title>
+            </Section.Footer>
+          }
+        >
+          <Link href="/ton-connect">
+            <Cell
+              before={
+                <Image
+                  src={tonSvg.src}
+                  style={{ backgroundColor: '#007AFF' }}
+                />
+              }
+              subtitle="Connect your ETH wallet"
+            >
+              SPC Connect
+            </Cell>
+          </Link>
+        </Section>
+        <Section
+          header="Quests"
+          footer={
+            <Section.Footer>
+              <Link href="https://spacecoin.xyz">Looking for the blue paper?</Link>
+            </Section.Footer>
+          }
+        >
+          <Link href="/init-data">
+            <Cell after="50 SPC" subtitle="Learn them more about SpaceCoin.xyz">
+              QUIZ (Difficult)
+            </Cell>
+          </Link>
+          <Link href="/launch-params">
+            <Cell after="NFT" subtitle="Share SpaceCoin.xyz on socials">
+              QUIZ (Difficult)
+            </Cell>
+          </Link>
+          <Link href="/theme-params">
+            <Cell after="5 SPC" subtitle="Have you heard about entropy?">
+              Dice rolling
+            </Cell>
+          </Link>
+          <Link href="/congrats">
+            <Cell after="5 SPC" subtitle="Remove before prod">
+              Congrats
+            </Cell>
+          </Link>
+        </Section>
+        <Section header={t('header')} footer={t('footer')}>
+          <LocaleSwitcher/>
+        </Section>
+      </List>
+    </Page>
+  );
+}
