@@ -65,7 +65,7 @@ export default function Home() {
             </Cell>
           </Link>
           <Link href="/launch-params">
-            <Cell after="NFT" subtitle="Share SpaceCoin.xyz on socials">
+            <Cell disabled after="NFT" subtitle="Share SpaceCoin.xyz on socials">
               QUIZ (Difficult)
             </Cell>
           </Link>
