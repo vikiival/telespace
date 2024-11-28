@@ -1,18 +1,18 @@
-'use client';
+"use client";
 
-import { Section, Cell, Image, List, Title } from '@telegram-apps/telegram-ui';
-import { useTranslations } from 'next-intl';
-import { useSignal, initData, type User } from '@telegram-apps/sdk-react';
+import { initData, useSignal } from "@telegram-apps/sdk-react";
+import { Cell, Image, List, Section, Title } from "@telegram-apps/telegram-ui";
+import { useTranslations } from "next-intl";
 
-import { Link } from '@/components/Link/Link';
-import { LocaleSwitcher } from '@/components/LocaleSwitcher/LocaleSwitcher';
-import { Page } from '@/components/Page';
+import { Link } from "@/components/Link/Link";
+import { LocaleSwitcher } from "@/components/LocaleSwitcher/LocaleSwitcher";
+import { Page } from "@/components/Page";
 
-import tonSvg from './_assets/spacecoin.svg';
-import { use, useMemo } from 'react'
+import { useMemo } from "react";
+import tonSvg from "./_assets/spacecoin.svg";
 
 export default function Home() {
-  const t = useTranslations('i18n');
+  const t = useTranslations("i18n");
   const initDataState = useSignal(initData.state);
 
   const userName = useMemo<string | undefined>(() => {
@@ -40,7 +40,7 @@ export default function Home() {
               before={
                 <Image
                   src={tonSvg.src}
-                  style={{ backgroundColor: '#007AFF' }}
+                  style={{ backgroundColor: "#007AFF" }}
                 />
               }
               subtitle="Connect your ETH wallet"
@@ -53,13 +53,15 @@ export default function Home() {
           header="Quests"
           footer={
             <Section.Footer>
-              <Link href="https://spacecoin.xyz">Looking for the blue paper?</Link>
+              <Link href="https://spacecoin.xyz">
+                Looking for the blue paper?
+              </Link>
             </Section.Footer>
           }
         >
-          <Link href="/init-data">
+          <Link href="/quiz-easy">
             <Cell after="50 SPC" subtitle="Learn them more about SpaceCoin.xyz">
-              QUIZ (Difficult)
+              QUIZ (Easy)
             </Cell>
           </Link>
           <Link href="/launch-params">
@@ -69,7 +71,12 @@ export default function Home() {
           </Link>
           <Link href="/theme-params">
             <Cell after="5 SPC" subtitle="Have you heard about entropy?">
-              Dice rolling
+              Theme
+            </Cell>
+          </Link>
+          <Link href="/machine">
+            <Cell after="5 SPC" subtitle="Have you heard about entropy?">
+              Slot Machine
             </Cell>
           </Link>
           <Link href="/congrats">
@@ -78,8 +85,8 @@ export default function Home() {
             </Cell>
           </Link>
         </Section>
-        <Section header={t('header')} footer={t('footer')}>
-          <LocaleSwitcher/>
+        <Section header={t("header")} footer={t("footer")}>
+          <LocaleSwitcher />
         </Section>
       </List>
     </Page>
