@@ -1,13 +1,13 @@
-import { Button, Cell, Selectable } from "@telegram-apps/telegram-ui";
+import { Button } from "@telegram-apps/telegram-ui"
 import React, {
   MutableRefObject,
   useCallback,
   useEffect,
   useRef,
   useState,
-} from "react";
+} from "react"
 
-import "./styles.css";
+import "./styles.css"
 
 // Define props for RepeatButton
 interface RepeatButtonProps {
@@ -187,7 +187,7 @@ export default function SlotMachine() {
       setWinner(isWinner);
 
       if (isWinner) {
-        onSuccess(matches.current[0]);
+        // onSuccess(matches.current[0]);
       }
     }
   };
