@@ -17,14 +17,13 @@ interface RepeatButtonProps {
   // text: string;
 }
 
-function RepeatButton({ onClick }: RepeatButtonProps) {
+function RepeatButton({ onClick, loading }: RepeatButtonProps) {
   return (
     <Button
-      disabled={false}
-      loading={false}
+      loading={loading}
       mode="filled"
       size="m"
-      stretched={false}
+      stretched={true}
       aria-label="Play again."
       id="repeatButton"
       onClick={onClick}
@@ -45,7 +44,7 @@ function WinningSound() {
 // Define props for Spinner
 interface SpinnerProps {
   onFinish: (position: number) => void;
-  index: number,
+  index: number;
   timer: number;
 }
 
@@ -77,7 +76,7 @@ const Spinner = React.forwardRef(
 
     const emojiSlots = Array.from({ length: 100 }, (_, i) => {
       return emojis[i % emojis.length];
-    })
+    });
 
     const setStartPosition = () =>
       ((Math.floor(Math.random() * 9)) * iconHeight) * -1;
@@ -107,7 +106,7 @@ const Spinner = React.forwardRef(
         if (currentPosition < maxPosition) currentPosition = 0;
       }
 
-      console.log(index, emojiSlots.at((position / -96) + 1))
+      // console.log(index, emojiSlots.at((position / -96) + 1));
 
       onFinish(currentPosition);
     };
@@ -141,20 +140,21 @@ const Spinner = React.forwardRef(
     //   />
     // );
 
-
     return (
-      <div className="transition-transform" style={{
-        transform: `translateY(${position}px)`,
-        height: `${iconHeight * 3}px`
-      }}>
+      <div
+        className="transition-transform"
+        style={{
+          transform: `translateY(${position}px)`,
+          height: `${iconHeight * 3}px`,
+        }}
+      >
         {emojiSlots.map((e, index) => (
           <div key={index} className="size-24 flex items-center justify-center">
             <span className="text-7xl">{e}</span>
           </div>
-
         ))}
       </div>
-    )
+    );
   },
 );
 
@@ -187,6 +187,7 @@ export default function SlotMachine() {
   return (
     <div>
       {winner && <WinningSound />}
+      {/* {winner && <Confetti /> } */}
 
       <div className="spinner-parent">
         <div
@@ -206,23 +207,28 @@ export default function SlotMachine() {
             ))}
             {/* <div className="gradient-fade"></div> */}
           </div>
-          <div style={{
-            inset: 0,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            position: "absolute",
-          }}>
-            <div style={{
-              width: `${96 * 3}px`,
-              height: "33%",
-              backgroundColor: "rgba(255, 0, 0, 0.2)",
-            }}></div>
+          <div
+            style={{
+              inset: 0,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              position: "absolute",
+            }}
+          >
+            <div
+              style={{
+                width: `${96 * 3}px`,
+                height: "33%",
+                backgroundColor: "rgba(255, 0, 0, 0.2)",
+              }}
+            >
+            </div>
           </div>
         </div>
       </div>
 
-      {winner !== null && <RepeatButton onClick={handleClick} />}
+      <RepeatButton onClick={handleClick} loading={winner === null} />
     </div>
   );
 }
