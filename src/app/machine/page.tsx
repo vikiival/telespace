@@ -1,22 +1,17 @@
 'use client';
 
-import { useLaunchParams } from '@telegram-apps/sdk-react';
+import { Link } from "@/components/Link/Link"
+import { Page } from '@/components/Page'
+import SlotMachine from '@/components/SlotMachine/SlotMachine'
 import {
-  Button,
   Cell,
   Image,
   List,
-  Progress,
   Section,
-  Selectable,
-  Title,
-} from "@telegram-apps/telegram-ui";
-import { Link } from "@/components/Link/Link";
-import tonSvg from "../_assets/spacecoin.svg";
-import { DisplayData } from '@/components/DisplayData/DisplayData';
-import { Page } from '@/components/Page';
-import SlotMachine from '@/components/SlotMachine/SlotMachine'
+  Title
+} from "@telegram-apps/telegram-ui"
 import { useState } from 'react'
+import tonSvg from "../_assets/spacecoin.svg"
 
 export default function SlotMachinePage() {
   const [score, setScore] = useState(0)
