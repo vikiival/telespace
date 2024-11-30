@@ -159,11 +159,11 @@ const Spinner = React.forwardRef(
 );
 
 interface SlotMachineProps {
-  onFinish: (value: number) => void;
+  onSuccess: (value: number) => void;
   // text: string;
 }
 // Define the main App component
-export default function SlotMachine({ onFinish }: SlotMachineProps ) {
+export default function SlotMachine() {
   const [winner, setWinner] = useState<boolean | null>(null);
   const matches = useRef<number[]>([]);
   const childRefs = [
@@ -187,7 +187,7 @@ export default function SlotMachine({ onFinish }: SlotMachineProps ) {
       setWinner(isWinner);
 
       if (isWinner) {
-        onFinish(matches.current[0]);
+        onSuccess(matches.current[0]);
       }
     }
   };

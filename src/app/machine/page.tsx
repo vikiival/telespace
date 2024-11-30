@@ -62,7 +62,7 @@ export default function SlotMachinePage() {
             </Section.Header>
           }
         >
-          <SlotMachine onSuccess={handleSuccess} />
+          <SlotMachine />
         </Section>
       </List>
     </Page>
