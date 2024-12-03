@@ -35,7 +35,7 @@ export default function Home() {
             </Section.Footer>
           }
         >
-          <Link href="/ton-connect">
+          <Link href="/wallet">
             <Cell
               before={
                 <Image
@@ -65,7 +65,7 @@ export default function Home() {
             </Cell>
           </Link>
           <Link href="/launch-params">
-            <Cell disabled after="NFT" subtitle="Share SpaceCoin.xyz on socials">
+            <Cell disabled after="50 SPC" subtitle="Share SpaceCoin.xyz on socials">
               QUIZ (Difficult)
             </Cell>
           </Link>
