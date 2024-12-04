@@ -31,7 +31,7 @@ export default function Home() {
           footer={
             <Section.Footer centered>
               Your current balance
-              <Title>0 SPC</Title>
+              <div className="text-2xl">0 SPC</div>
             </Section.Footer>
           }
         >
