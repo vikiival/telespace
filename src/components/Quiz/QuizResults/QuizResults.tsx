@@ -55,7 +55,7 @@ export function QuizResults() {
             </Section.Footer>
           }
         >
-          <Link href="/ton-connect">
+          <Link href="/wallet">
             <Cell
               before={
                 <Image

@@ -20,8 +20,9 @@ export const QuizOption: FC<QuizOptionProps> = ({
   //   // setLocale(locale);
   // };
 
+  // before={<Selectable name="group" value={value} />}
   return (
-    <Cell onClick={onChange} Component="label" before={<Selectable name="group" value={value} />} description={description} >
+    <Cell onClick={onChange} Component="label"  description={description} >
       {text}
     </Cell>
   );
