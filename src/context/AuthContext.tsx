@@ -1,12 +1,19 @@
 "use client";
 
+// Code was taken from, kudos for them
+// https://github.com/onflow/Telegram-Integration-Quickstarts/tree/main/Course_3_Connect_OKX_Wallet_Flow_EVM
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { OKXUniversalConnectUI, THEME } from "@okxconnect/ui";
+import { Hex, toBigInt } from "ox/Hex";
+import {
+	toRpc,
+	TransactionEnvelopeEip1559,
+} from "ox/TransactionEnvelopeEip1559";
 
 interface AuthContextType {
 	connected: boolean;
 	walletAddress: string | null;
-	chainId: string | null;
+	chainId: string | undefined;
 	logIn: () => Promise<void>;
 	logOut: () => Promise<void>;
 }
@@ -18,8 +25,9 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
 	const [client, setClient] = useState<OKXUniversalConnectUI | null>(null);
 	const [walletAddress, setWalletAddress] = useState<string | null>(null);
-	const [chainId, setChainId] = useState<string | null>(null);
+	const [chainId, setChainId] = useState<string | undefined>(undefined);
 	const [connected, setConnected] = useState(false);
+	const [balance, setBalance] = useState(BigInt(0));
 
 	useEffect(() => {
 		const initClient = async () => {
@@ -71,11 +79,13 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
 
 			// Remove the "eip155:" prefix from the chainId
 			const rawChainId = session.namespaces.eip155.chains[0];
-			const chain = rawChainId?.split(":")[1] || null;
+			const chain = rawChainId?.split(":")[1] || undefined;
 
 			setWalletAddress(address);
 			setChainId(chain);
 			setConnected(true);
+
+			// await getBalance();
 		} catch (error) {
 			console.error("Failed to connect wallet:", error);
 		}
@@ -86,12 +96,40 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
 		try {
 			await client.disconnect();
 			setWalletAddress(null);
-			setChainId(null);
+			setChainId(undefined);
 			setConnected(false);
 		} catch (error) {
 			console.error("Failed to disconnect wallet:", error);
 		}
 	};
+
+	// const getBalance = async () => {
+	// 	if (!client) return;
+	// 	const data = {
+	// 		"method": "eth_getBalance",
+	// 		"params": [walletAddress, "latest"],
+	// 	};
+	// 	try {
+	// 		const getBalanceResult = await client.request<Hex>(data, chainId);
+	// 		const parsed = toBigInt(getBalanceResult);
+	// 		setBalance(parsed);
+	// 	} catch (error) {
+	// 		console.error("Failed to disconnect wallet:", error);
+	// 	}
+	// };
+
+	// const sendTransaction = async (envelope: TransactionEnvelopeEip1559) => {
+	// 	if (!client) return;
+	// 	try {
+	// 		const param = toRpc(envelope);
+	// 		client.request({
+	// 			method: "eth_sendTransaction",
+	// 			params: [param],
+	// 		});
+	// 	} catch (error) {
+	// 		console.error("Failed to sign with wallet:", error);
+	// 	}
+	// };
 
 	return (
 		<AuthContext.Provider
