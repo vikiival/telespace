@@ -6,6 +6,7 @@ import React, {
   useRef,
   useState,
 } from "react"
+import Image from 'next/image'
 
 import "./styles.css"
 
@@ -21,8 +22,8 @@ function RepeatButton({ onClick, loading }: RepeatButtonProps) {
   return (
     <Button
       loading={loading}
-      mode="filled"
-      size="m"
+      mode="bezeled"
+      size="l"
       stretched={true}
       aria-label="Play again."
       id="repeatButton"
@@ -62,17 +63,19 @@ const Spinner = React.forwardRef(
     const speed = iconHeight * multiplier;
     const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-    const emojis = [
-      "📡",
-      "🛰️",
-      "🪐",
-      "🌍",
-      "🌚",
-      "🌞",
-      "☄️",
-      "💫",
-      "🚀",
-    ];
+    // const emojis = [
+    //   "📡",
+    //   "🛰️",
+    //   "🪐",
+    //   "🌍",
+    //   "🌚",
+    //   "🌞",
+    //   "☄️",
+    //   "💫",
+    //   "🚀",
+    // ];
+
+    const emojis =  Array.from({ length: 8 },  (_, i) => i + 1)
 
     const emojiSlots = Array.from({ length: 100 }, (_, i) => {
       return emojis[i % emojis.length];
@@ -150,7 +153,8 @@ const Spinner = React.forwardRef(
       >
         {emojiSlots.map((e, index) => (
           <div key={index} className="size-24 flex items-center justify-center">
-            <span className="text-7xl">{e}</span>
+            <Image src={`/art/art-${e}.webp`} alt={`Emoji ${e}`} width={iconHeight} height={iconHeight} />
+            {/* <span className="text-7xl">{e}</span> */}
           </div>
         ))}
       </div>
@@ -228,7 +232,7 @@ export default function SlotMachine() {
               style={{
                 width: `${96 * 3}px`,
                 height: "33%",
-                backgroundColor: "rgba(255, 0, 0, 0.2)",
+                backgroundColor: "rgba(106, 179, 243, 0.2)",
               }}
             >
             </div>
