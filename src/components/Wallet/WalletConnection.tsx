@@ -4,6 +4,11 @@ import { AuthContextProvider, useAuth } from "@/context/AuthContext";
 import { Cell, Image, List, Section, Title } from "@telegram-apps/telegram-ui";
 import spacecoin from "../../app/_assets/spacecoin.svg";
 
+const chains: Record<string, string> = {
+  '8453': "Base",
+  '84532': "Base Sepolia"
+}
+
 export default function WalletConnection() {
   const { connected, walletAddress, chainId, logIn, logOut } = useAuth();
 
@@ -16,9 +21,9 @@ export default function WalletConnection() {
             style={{ backgroundColor: "#007AFF" }}
           />
         }
-        subtitle={walletAddress}
+        subtitle={`Connected on ${chainId ? chains[chainId] : 'Unknown'}`}
       >
-        Connected on {chainId}
+        { walletAddress }
       </Cell>
     );
   }
