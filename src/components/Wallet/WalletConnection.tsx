@@ -1,7 +1,7 @@
 "use client";
 
 import { AuthContextProvider, useAuth } from "@/context/AuthContext";
-import { Cell, Image, List, Section, Title } from "@telegram-apps/telegram-ui";
+import { Button, Cell, Image, List, Section, Title } from "@telegram-apps/telegram-ui";
 import spacecoin from "../../app/_assets/spacecoin.svg";
 
 const chains: Record<string, string> = {
@@ -9,7 +9,7 @@ const chains: Record<string, string> = {
   '84532': "Base Sepolia"
 }
 
-export default function WalletConnection() {
+export function WalletConnection() {
   const { connected, walletAddress, chainId, logIn, logOut } = useAuth();
 
   if (connected) {
@@ -22,6 +22,9 @@ export default function WalletConnection() {
           />
         }
         subtitle={`Connected on ${chainId ? chains[chainId] : 'Unknown'}`}
+        after={
+          <Button onClick={logOut}>BYEEEE</Button>
+        }
       >
         { walletAddress }
       </Cell>
