@@ -2,24 +2,20 @@
 
 import {
   Button,
-  Cell,
-  Image,
   List,
-  Progress,
-  Section,
-  Selectable,
-  Title,
-} from "@telegram-apps/telegram-ui";
-import { Link } from "@/components/Link/Link";
+  Section
+} from "@telegram-apps/telegram-ui"
 
-import { DisplayData } from "@/components/DisplayData/DisplayData";
-import { Page } from "@/components/Page";
-import { useQuizStore } from "@/lib/store/quiz-store";
-import { questions } from "@/lib/data/questions";
-import tonSvg from "../../../app/_assets/spacecoin.svg";
+import { DisplayData } from "@/components/DisplayData/DisplayData"
+import { Page } from "@/components/Page"
+import { WalletConnection } from "@/components/Wallet/WalletConnection"
+import { useAuth } from "@/context/AuthContext"
+import { questions } from "@/lib/data/questions"
+import { useQuizStore } from "@/lib/store/quiz-store"
 
 export function QuizResults() {
   const { score, resetQuiz, answers } = useQuizStore();
+  const { connected, logIn } = useAuth();
   const percentage = Math.ceil((score / questions.length) * 100);
 
   const rows = questions.map((question, index) => {
@@ -31,9 +27,13 @@ export function QuizResults() {
           <div>
             Answer: {question.options[question.correctAnswer]}
           </div>
-          <div style={{
-            color: isCorrect ? 'green' : 'red'
-          }}>You answered: {question.options[answers[index]]}</div>
+          <div
+            style={{
+              color: isCorrect ? "green" : "red",
+            }}
+          >
+            You answered: {question.options[answers[index]]}
+          </div>
         </>
       ),
     };
@@ -50,30 +50,31 @@ export function QuizResults() {
           }
           footer={
             <Section.Footer centered>
-              Your amazing result will give you 
-              <Title>{score * 6} SPC</Title>
+              Your amazing result will give you
+              <div className="text-2xl">{score * 6} SPC</div>
+              <div className="mt-3">
+                <Button
+                  onClick={connected ? () => {} : logIn}
+                  mode="bezeled"
+                  stretched
+                >
+                  {connected
+                    ? "Claim tokens now"
+                    : "Connect OKX Wallet to claim"}
+                </Button>
+              </div>
             </Section.Footer>
           }
         >
-          <Link href="/wallet">
-            <Cell
-              before={
-                <Image
-                  src={tonSvg.src}
-                  style={{ backgroundColor: "#007AFF" }}
-                />
-              }
-              subtitle="Connect your ETH wallet"
-            >
-              SPC Connect
-            </Cell>
-          </Link>
+          <WalletConnection />
         </Section>
         <Section
           header={
-            <Section.Header large> 
-              Results ({score} correct)
-            </Section.Header>
+            <>
+              <Section.Header large>
+                Results ({score} correct)
+              </Section.Header>
+            </>
           }
           footer={
             <Section.Footer>
