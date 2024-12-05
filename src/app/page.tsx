@@ -10,7 +10,7 @@ import { Page } from "@/components/Page";
 
 import { useMemo } from "react";
 import tonSvg from "./_assets/spacecoin.svg";
-import { WalletWithContext } from "@/components/Wallet/WalletConnection"
+import { WalletConnection } from "@/components/Wallet/WalletConnection"
 
 export default function Home() {
   const t = useTranslations("i18n");
@@ -49,7 +49,7 @@ export default function Home() {
               SPC Connect
             </Cell>
           </Link> */}
-          <WalletWithContext />
+          <WalletConnection />
         </Section>
         <Section
           header="Quests"

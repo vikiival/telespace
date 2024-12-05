@@ -33,7 +33,7 @@ const universalUi = OKXUniversalConnectUI.init({
   // restoreConnection: true
 });
 
-function ConnectButton() {
+export default function ConnectButton() {
   const { connected, walletAddress, chainId, logIn, logOut } = useAuth();
 
   if (connected) {
@@ -51,14 +51,14 @@ function ConnectButton() {
   )
 }
 
-export default function WalletPage() {
-  return (
-    <AuthContextProvider>
-      <ConnectButton />
-    </AuthContextProvider>
+// export default function WalletPage() {
+//   return (
+//     <AuthContextProvider>
+//       <ConnectButton />
+//     </AuthContextProvider>
 
-  );
-}
+//   );
+// }
 
       
 
