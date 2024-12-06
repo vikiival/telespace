@@ -1,5 +1,6 @@
 {
-  "name": "nextjs-template",
+  "name": "telespace",
+  "description": "Quiz App for spacecoin.xyz as telegram mini app",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,8 +11,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@dynamic-labs/ethereum": "^3.8.5",
-    "@dynamic-labs/sdk-react-core": "^3.8.5",
     "@okxconnect/ui": "^1.5.5",
     "@okxconnect/universal-provider": "^1.5.5",
     "@telegram-apps/sdk-react": "^2.0.5",
