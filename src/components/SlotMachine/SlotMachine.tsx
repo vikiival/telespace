@@ -9,6 +9,7 @@ import React, {
 import Image from 'next/image'
 
 import "./styles.css"
+import { EntropyState, getRand } from "@/utils/drand"
 
 // Define props for RepeatButton
 interface RepeatButtonProps {
@@ -47,19 +48,22 @@ interface SpinnerProps {
   onFinish: (position: number) => void;
   index: number;
   timer: number;
+  entropy?: number;
 }
 
 // Spinner component with forwardRef to expose the reset method
 const Spinner = React.forwardRef(
   (
-    { onFinish, timer, index }: SpinnerProps,
+    { onFinish, timer, index, entropy }: SpinnerProps,
     ref: React.Ref<{ reset: () => void }>,
   ) => {
     const [position, setPosition] = useState<number>(0);
     const [timeRemaining, setTimeRemaining] = useState<number>(timer);
     // Dole je divko co ma takyto isty rozmer
+
+    const randomness = entropy || Math.random();
     const iconHeight = 96;
-    const multiplier = Math.floor(Math.random() * (4 - 1) + 1);
+    const multiplier = Math.floor(randomness * (4 - 1) + 1);
     const speed = iconHeight * multiplier;
     const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -82,7 +86,7 @@ const Spinner = React.forwardRef(
     });
 
     const setStartPosition = () =>
-      ((Math.floor(Math.random() * 9)) * iconHeight) * -1;
+      ((Math.floor(randomness * 9)) * iconHeight) * -1;
     const startPosition = useRef<number>(setStartPosition());
 
     const reset = useCallback(() => {
@@ -166,6 +170,7 @@ interface SlotMachineProps {
   onSuccess: (value: number) => void;
   // text: string;
 }
+
 // Define the main App component
 export default function SlotMachine() {
   const [winner, setWinner] = useState<boolean | null>(null);
@@ -175,6 +180,11 @@ export default function SlotMachine() {
     useRef<{ reset: () => void }>(null),
     useRef<{ reset: () => void }>(null),
   ];
+  const [random, setRandom] = useState<EntropyState>({
+    entropy: 0.7857853486088646,
+    randomness: '0x0c05b604912a2d5ca053c9e6e63b123f40bb1f00763103ac44c2513a6ec94ef5',
+    round: 13563267
+  });
 
   const handleClick = () => {
     setWinner(null);
@@ -189,6 +199,7 @@ export default function SlotMachine() {
         match === matches.current[0]
       );
       setWinner(isWinner);
+      getRand().then(setRandom).catch(console.error)
 
       if (isWinner) {
         // onSuccess(matches.current[0]);
@@ -215,6 +226,7 @@ export default function SlotMachine() {
                 onFinish={finishHandler}
                 timer={1000 + index * 400}
                 ref={ref}
+                entropy={random.entropy}
               />
             ))}
             {/* <div className="gradient-fade"></div> */}
