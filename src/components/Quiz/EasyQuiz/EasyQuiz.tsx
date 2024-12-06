@@ -1,25 +1,21 @@
 
 "use client";
 
-import { useLaunchParams } from "@telegram-apps/sdk-react";
 import {
   Cell,
   Image,
   List,
   Progress,
-  Section,
-  Selectable,
-  Title,
-} from "@telegram-apps/telegram-ui";
-import { initData, type User, useSignal } from "@telegram-apps/sdk-react";
+  Section
+} from "@telegram-apps/telegram-ui"
 
-import { Link } from "@/components/Link/Link";
-import { DisplayData } from "@/components/DisplayData/DisplayData";
-import { Page } from "@/components/Page";
-import { QuizOption } from "@/components/Quiz/QuizOption/QuizOption";
-import tonSvg from '../../../app/_assets/spacecoin.svg' //"../../../_assets/spacecoin.svg";
-import { questions } from "@/lib/data/questions";
-import { useQuizStore } from "@/lib/store/quiz-store";
+import BluePaperLink from "@/components/common/BluePaperLink"
+import { Link } from "@/components/Link/Link"
+import { Page } from "@/components/Page"
+import { QuizOption } from "@/components/Quiz/QuizOption/QuizOption"
+import { questions } from "@/lib/data/questions"
+import { useQuizStore } from "@/lib/store/quiz-store"
+import tonSvg from '../../../app/_assets/spacecoin.svg'; //"../../../_assets/spacecoin.svg";
 
 export function EasyQuiz() {
   const { currentQuestionIndex, answers, selectAnswer, nextQuestion } =
@@ -73,16 +69,14 @@ export function EasyQuiz() {
 
         <Section
           header={
-            <Section.Header large>
+            <Section.Header className="mb-4" large>
               <div>Question {currentQuestionIndex + 1}</div>
               <b>{currentQuestion.question}</b>
             </Section.Header>
           }
           footer={
             <Section.Footer>
-              <Link href="https://spacecoin.xyz">
-                Looking for the blue paper?
-              </Link>
+              <BluePaperLink />
             </Section.Footer>
           }
         >
@@ -90,7 +84,7 @@ export function EasyQuiz() {
             <QuizOption
               key={index}
               value={index}
-              description="Description"
+              description={`Option ${String.fromCharCode(65 + index)}`}
               text={cellText}
               onChange={() => handleOptionClick(index)}
             />

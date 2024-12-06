@@ -3,7 +3,7 @@ import { FC } from 'react'
 
 type QuizOptionProps = {
   value: string | number;
-  description: string;
+  description?: string;
   text: string;
   onChange: any;
 }
