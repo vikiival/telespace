@@ -1,17 +1,14 @@
 'use client';
 
-import { Link } from "@/components/Link/Link"
 import { Page } from '@/components/Page'
 import SlotMachine from '@/components/SlotMachine/SlotMachine'
+import { WalletConnection } from "@/components/Wallet/WalletConnection"
+import { TOKEN_SYMBOL } from "@/constants"
 import {
-  Cell,
-  Image,
   List,
-  Section,
-  Title
+  Section
 } from "@telegram-apps/telegram-ui"
 import { useState } from 'react'
-import tonSvg from "../_assets/spacecoin.svg"
 
 export default function SlotMachinePage() {
   const [score, setScore] = useState(0)
@@ -32,23 +29,11 @@ export default function SlotMachinePage() {
           footer={
             <Section.Footer centered>
               You have spinned
-              <Title>{score} SPC</Title>
+              <div className="text-2xl">{score} {TOKEN_SYMBOL}</div>
             </Section.Footer>
           }
         >
-          <Link href="/ton-connect">
-            <Cell
-              before={
-                <Image
-                  src={tonSvg.src}
-                  style={{ backgroundColor: "#007AFF" }}
-                />
-              }
-              subtitle="Connect your ETH wallet"
-            >
-              SPC Connect
-            </Cell>
-          </Link>
+          <WalletConnection />
         </Section>
         <Section
           header={
