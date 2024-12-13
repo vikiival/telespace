@@ -1,24 +1,13 @@
 "use client";
 
-import {
-  DynamicContextProvider,
-  DynamicWidget,
-} from "@dynamic-labs/sdk-react-core";
-import { EthereumWalletConnectors } from "@dynamic-labs/ethereum";
+import { useAuth } from '@/context/AuthContext'
+import { OKXUniversalConnectUI } from "@okxconnect/ui"
 import {
   Button,
-  Cell,
-  Image,
-  List,
-  Section,
-  Title,
-} from "@telegram-apps/telegram-ui";
-import tonSvg from "../_assets/darkspace.svg";
-import { OKXUniversalConnectUI, THEME } from "@okxconnect/ui";
-import { AuthContextProvider, useAuth } from '@/context/AuthContext';
+  Title
+} from "@telegram-apps/telegram-ui"
 
-import "./styles.css";
-import { useState } from "react"
+import "./styles.css"
 const universalUi = OKXUniversalConnectUI.init({
   dappMetaData: {
     icon: "https://avatars.githubusercontent.com/u/172411359?s=200&v=4",
