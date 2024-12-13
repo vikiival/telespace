@@ -31,14 +31,19 @@ export function QuizResults() {
   const [signed, setSigned] = useState<string| any>('');
 
   const handleClaim = async () => {
-    const signature = await sign(Hex.fromString(JSON.stringify({
-      userId,
-      address: walletAddress,
-      score
-    })));
-
-    console.log(signature);
-    setSigned(signature);
+    try {
+      const signature = await sign(Hex.fromString(JSON.stringify({
+        userId,
+        address: walletAddress,
+        score
+      })));
+  
+      console.log(signature);
+      setSigned(signature);
+    } catch (error) {
+      setSigned((error as any).message as any)
+    }
+   
     // const result = await fetch("/api/claim", {
     //   method: "POST",
     //   headers: {
