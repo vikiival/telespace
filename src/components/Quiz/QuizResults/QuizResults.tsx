@@ -12,11 +12,47 @@ import { WalletConnection } from "@/components/Wallet/WalletConnection"
 import { useAuth } from "@/context/AuthContext"
 import { questions } from "@/lib/data/questions"
 import { useQuizStore } from "@/lib/store/quiz-store"
+import { AMOUNT_PER_EASY_QUIZ, TOKEN_SYMBOL } from "@/constants"
+import { initData, useSignal } from "@telegram-apps/sdk-react"
+import { useMemo, useState } from "react"
+import { Hex } from "ox";
 
 export function QuizResults() {
+  const initDataState = useSignal(initData.state);
   const { score, resetQuiz, answers } = useQuizStore();
-  const { connected, logIn } = useAuth();
+  const { connected, logIn, walletAddress, sign } = useAuth();
   const percentage = Math.ceil((score / questions.length) * 100);
+  const userId = useMemo<number | undefined>(() => {
+    return initDataState && initDataState.user
+      ? initDataState.user.id
+      : undefined;
+  }, [initDataState]);
+
+  const [signed, setSigned] = useState<string| any>('');
+
+  const handleClaim = async () => {
+    const signature = await sign(Hex.fromString(JSON.stringify({
+      userId,
+      address: walletAddress,
+      score
+    })));
+
+    console.log(signature);
+    setSigned(signature);
+    // const result = await fetch("/api/claim", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     userId,
+    //     address: walletAddress,
+    //     score,
+    //     signature: '0x00',
+    //     amount: score * AMOUNT_PER_EASY_QUIZ,
+    //   }),
+    // });
+  } 
 
   const rows = questions.map((question, index) => {
     const isCorrect = answers[index] === question.correctAnswer;
@@ -45,16 +81,16 @@ export function QuizResults() {
         <Section
           header={
             <Section.Header>
-              Quiz Easy Results
+              Quiz Easy Results (signature: {signed})
             </Section.Header>
           }
           footer={
             <Section.Footer centered>
               Your amazing result will give you
-              <div className="text-2xl">{score * 6} SPC</div>
+              <div className="text-2xl">{score * AMOUNT_PER_EASY_QUIZ} {TOKEN_SYMBOL}</div>
               <div className="mt-3">
                 <Button
-                  onClick={connected ? () => {} : logIn}
+                  onClick={connected ? handleClaim : logIn}
                   mode="bezeled"
                   stretched
                 >
