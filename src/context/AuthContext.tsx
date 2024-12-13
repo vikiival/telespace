@@ -16,6 +16,7 @@ interface AuthContextType {
 	chainId: string | undefined;
 	logIn: () => Promise<void>;
 	logOut: () => Promise<void>;
+	sign: (data: Hex) => Promise<string | undefined>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -131,6 +132,19 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
 	// 	}
 	// };
 
+	const sign = async (data: Hex) => {
+		if (!client) return;
+		try {
+			const signature = await client.request<string>({
+				method: "personal_sign",
+				params: [data, walletAddress],
+			}, chainId);
+			return signature;
+		} catch (error) {
+			console.error("Failed to sign with wallet:", error);
+		}
+	}
+
 	return (
 		<AuthContext.Provider
 			value={{
@@ -139,6 +153,7 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
 				chainId,
 				logIn,
 				logOut,
+				sign
 			}}
 		>
 			{children}
