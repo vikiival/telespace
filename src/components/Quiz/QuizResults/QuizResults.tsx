@@ -29,10 +29,12 @@ export function QuizResults() {
   }, [initDataState]);
 
   const [signed, setSigned] = useState<string| any>('');
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleClaim = async () => {
     try {
       setSigned('Signing...');
+      setLoading(true);
       const signature = await sign(Hex.fromString(JSON.stringify({
         userId,
         address: walletAddress,
@@ -43,6 +45,9 @@ export function QuizResults() {
       setSigned(signature);
     } catch (error) {
       setSigned((error as any).message as any)
+      
+    } finally {
+      setLoading(false);
     }
    
     // const result = await fetch("/api/claim", {
@@ -96,6 +101,7 @@ export function QuizResults() {
               <div className="text-2xl">{(score * AMOUNT_PER_EASY_QUIZ).toFixed(2)} {TOKEN_SYMBOL}</div>
               <div className="mt-3">
                 <Button
+                  loading={loading}
                   onClick={connected ? () => handleClaim() : logIn}
                   mode="bezeled"
                   stretched
