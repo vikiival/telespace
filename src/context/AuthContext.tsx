@@ -133,15 +133,16 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
 	// };
 
 	const sign = async (data: Hex) => {
-		if (!client) return;
+		if (!client) return undefined;
 		try {
 			const signature = await client.request<string>({
 				method: "personal_sign",
 				params: [data, walletAddress],
-			}, chainId);
+			}, `eip155:${chainId}`);
 			return signature;
 		} catch (error) {
 			console.error("Failed to sign with wallet:", error);
+			return '';
 		}
 	}
 
