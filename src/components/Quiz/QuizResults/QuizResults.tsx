@@ -96,7 +96,7 @@ export function QuizResults() {
               <div className="text-2xl">{(score * AMOUNT_PER_EASY_QUIZ).toFixed(2)} {TOKEN_SYMBOL}</div>
               <div className="mt-3">
                 <Button
-                  onClick={connected ? handleClaim : logIn}
+                  onClick={connected ? () => setSigned('halloooo') : logIn}
                   mode="bezeled"
                   stretched
                 >
