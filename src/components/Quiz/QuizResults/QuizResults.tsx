@@ -93,7 +93,7 @@ export function QuizResults() {
           footer={
             <Section.Footer centered>
               Your amazing result will give you
-              <div className="text-2xl">{score * AMOUNT_PER_EASY_QUIZ} {TOKEN_SYMBOL}</div>
+              <div className="text-2xl">{(score * AMOUNT_PER_EASY_QUIZ).toFixed(2)} {TOKEN_SYMBOL}</div>
               <div className="mt-3">
                 <Button
                   onClick={connected ? handleClaim : logIn}
