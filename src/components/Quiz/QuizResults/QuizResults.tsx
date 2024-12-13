@@ -32,6 +32,7 @@ export function QuizResults() {
 
   const handleClaim = async () => {
     try {
+      setSigned('Signing...');
       const signature = await sign(Hex.fromString(JSON.stringify({
         userId,
         address: walletAddress,
