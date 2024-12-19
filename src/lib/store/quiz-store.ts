@@ -7,6 +7,7 @@ interface QuizStore extends QuizState {
   selectAnswer: (answer: number) => void;
   nextQuestion: () => void;
   resetQuiz: () => void;
+  claimReward: (claim: any) => void;
 }
 
 const initialState: QuizState = {
@@ -14,6 +15,8 @@ const initialState: QuizState = {
   answers: [],
   score: 0,
   isComplete: false,
+  hasClaimed: false,
+  claim: null,
 };
 
 export const useQuizStore = create<QuizStore>()(
@@ -40,6 +43,11 @@ export const useQuizStore = create<QuizStore>()(
       },
       resetQuiz: () => {
         set(initialState);
+        // const state = get();
+        // set({ ...initialState, claim: state.claim, hasClaimed: state.hasClaimed });
+      },
+      claimReward: (claim: any) => {
+        set({ claim, hasClaimed: true });
       },
     }),
     {
