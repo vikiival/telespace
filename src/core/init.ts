@@ -7,6 +7,7 @@ import {
   $debug,
   init as initSDK,
 } from '@telegram-apps/sdk-react';
+// import { requestFullscreen, isFullscreen } from '@telegram-apps/sdk';
 
 /**
  * Initializes the application and configures its dependencies.
