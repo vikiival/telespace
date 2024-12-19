@@ -10,4 +10,6 @@ export interface QuizState {
   answers: number[];
   score: number;
   isComplete: boolean;
+  hasClaimed: boolean;
+  claim: any;
 }
