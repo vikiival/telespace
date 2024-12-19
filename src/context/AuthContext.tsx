@@ -4,7 +4,7 @@
 // https://github.com/onflow/Telegram-Integration-Quickstarts/tree/main/Course_3_Connect_OKX_Wallet_Flow_EVM
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { OKXUniversalConnectUI, THEME } from "@okxconnect/ui";
-import { Hex, toBigInt } from "ox/Hex";
+import { Hex, fromString, toBigInt } from "ox/Hex";
 import {
 	toRpc,
 	TransactionEnvelopeEip1559,
@@ -16,7 +16,7 @@ interface AuthContextType {
 	chainId: string | undefined;
 	logIn: () => Promise<void>;
 	logOut: () => Promise<void>;
-	sign: (data: Hex) => Promise<string | undefined>;
+	sign: (data: string) => Promise<string | undefined>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -132,12 +132,12 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
 	// 	}
 	// };
 
-	const sign = async (data: Hex) => {
+	const sign = async (data: string) => {
 		if (!client) return undefined;
 		try {
 			const signature = await client.request<string>({
 				method: "personal_sign",
-				params: [data, walletAddress],
+				params: [fromString(data), walletAddress],
 			}, `eip155:${chainId}`);
 			return signature;
 		} catch (error) {
