@@ -13,10 +13,15 @@ import tonSvg from "./_assets/spacecoin.svg";
 import { WalletConnection } from "@/components/Wallet/WalletConnection"
 import { TOKEN_SYMBOL } from "@/constants"
 import BluePaperLink from "@/components/common/BluePaperLink"
+import { useQuizStore } from "@/lib/store/quiz-store"
+import { useAuth } from "@/context/AuthContext"
 
 export default function Home() {
   const t = useTranslations("i18n");
   const initDataState = useSignal(initData.state);
+  const { isComplete: isEasyQuizDone } = useQuizStore();
+  const { connected } = useAuth();
+  
 
   const userName = useMemo<string | undefined>(() => {
     return initDataState && initDataState.user
@@ -33,24 +38,11 @@ export default function Home() {
           }
           footer={
             <Section.Footer centered>
-              Your current balance
-              <div className="text-2xl">0 {TOKEN_SYMBOL}</div>
+              {connected ? "Your poins" : "Connect your wallet to see your points"}
+              <div className="text-2xl">{connected ? '0' : '-'} {TOKEN_SYMBOL}</div>
             </Section.Footer>
           }
         >
-          {/* <Link href="/wallet">
-            <Cell
-              before={
-                <Image
-                  src={tonSvg.src}
-                  style={{ backgroundColor: "#007AFF" }}
-                />
-              }
-              subtitle="Connect your ETH wallet"
-            >
-              SPC Connect
-            </Cell>
-          </Link> */}
           <WalletConnection />
         </Section>
         <Section
@@ -61,34 +53,37 @@ export default function Home() {
             </Section.Footer>
           }
         >
-          <Link href="/quiz-easy">
-            <Cell after="50 SPCQ" subtitle="Learn them more about SpaceCoin.xyz">
-              QUIZ (Easy)
+          <Link href={"/quiz-easy"}>
+            <Cell disabled={isEasyQuizDone} className="m-4"
+             after={isEasyQuizDone ? "COMPLETED" : "50 SPCQ"} subtitle="Learn them more about SpaceCoin.xyz">
+             {isEasyQuizDone && "✅" } QUIZ (Easy) 
             </Cell>
           </Link>
           <Link href="/launch-params">
-            <Cell disabled after="50 SPCQ" subtitle="Do you know more than founder?">
+            <Cell className="m-4" disabled after="50 SPCQ" subtitle="Do you know more than founder?">
               QUIZ (Difficult)
             </Cell>
           </Link>
-          <Link href="/theme-params">
-            <Cell after="5 SPCQ" subtitle="Have you heard about entropy?">
-              Theme
-            </Cell>
-          </Link>
           <Link href="/machine">
-            <Cell after="5 SPCQ" subtitle="Have you heard about entropy?">
+            <Cell className="m-4"  after="5 SPCQ" subtitle="Have you heard about entropy?">
               Slot Machine
-            </Cell>
-          </Link>
-          <Link href="/congrats">
-            <Cell after="5 SPCQ" subtitle="Remove before prod">
-              Congrats
             </Cell>
           </Link>
         </Section>
         <Section header={t("header")} footer={t("footer")}>
-          <LocaleSwitcher />
+          <Link href="https://x.com/Spacecoin_xyz">
+            <Cell
+              before={
+                <Image
+                  src={tonSvg.src}
+                  style={{ backgroundColor: "#000" }}
+                />
+              }
+            >
+              Follow us on X
+            </Cell>
+          </Link>
+          {/* <LocaleSwitcher /> */}
         </Section>
       </List>
     </Page>
