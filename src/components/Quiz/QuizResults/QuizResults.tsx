@@ -15,13 +15,12 @@ import { useQuizStore } from "@/lib/store/quiz-store"
 import { AMOUNT_PER_EASY_QUIZ, TOKEN_SYMBOL } from "@/constants"
 import { initData, useSignal } from "@telegram-apps/sdk-react"
 import { useMemo, useState } from "react"
-import { Hex } from "ox";
 
 export function QuizResults() {
   const initDataState = useSignal(initData.state);
-  const { score, resetQuiz, answers } = useQuizStore();
-  const { connected, logIn, walletAddress, sign } = useAuth();
-  const percentage = Math.ceil((score / questions.length) * 100);
+  const { score, resetQuiz, answers, claimReward } = useQuizStore();
+  const { connected, logIn, walletAddress, sign, chainId } = useAuth();
+
   const userId = useMemo<number | undefined>(() => {
     return initDataState && initDataState.user
       ? initDataState.user.id
@@ -33,36 +32,37 @@ export function QuizResults() {
 
   const handleClaim = async () => {
     try {
-      setSigned('Signing...');
-      setLoading(true);
-      const signature = await sign(Hex.fromString(JSON.stringify({
-        userId,
+      setLoading(true)
+      const payload = {
         address: walletAddress,
-        score
-      })));
-  
-      console.log(signature);
-      setSigned(signature);
+        amount: (score * AMOUNT_PER_EASY_QUIZ).toFixed(2),
+        answers: answers,
+        score,
+        task: 'easy-quiz',
+        userId,
+      }
+      const signature = await sign(JSON.stringify(payload))
+
+      const result = await fetch("/api/cointracker", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...payload,
+          chainId,
+          signature,
+        }),
+      })
+      console.log(signature, result)
+      setSigned(signature)
+      // claimReward(result)
     } catch (error) {
       setSigned((error as any).message as any)
-      
+
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-   
-    // const result = await fetch("/api/claim", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     userId,
-    //     address: walletAddress,
-    //     score,
-    //     signature: '0x00',
-    //     amount: score * AMOUNT_PER_EASY_QUIZ,
-    //   }),
-    // });
   } 
 
   const rows = questions.map((question, index) => {
