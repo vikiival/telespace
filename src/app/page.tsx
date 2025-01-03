@@ -59,9 +59,9 @@ export default function Home() {
              {isEasyQuizDone && "✅" } QUIZ (Easy) 
             </Cell>
           </Link>
-          <Link href="/launch-params">
+          <Link href="/">
             <Cell className="m-4" disabled after="50 SPCQ" subtitle="Do you know more than founder?">
-              QUIZ (Difficult)
+             [Coming soon] QUIZ (Difficult)
             </Cell>
           </Link>
           <Link href="/machine">
