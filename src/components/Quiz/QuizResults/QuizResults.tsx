@@ -79,9 +79,7 @@ export function QuizResults() {
             Answer: {question.options[question.correctAnswer]}
           </div>
           <div
-            style={{
-              color: isCorrect ? "green" : "red",
-            }}
+            className={ isCorrect ? "text-green-500" : "text-red-500"}
           >
             You answered: {question.options[answers[index]]}
           </div>
@@ -101,7 +99,7 @@ export function QuizResults() {
           }
           footer={
             <Section.Footer centered>
-              {hasClaimed ? 'You have already claimed' : 'Your amazing result will give you'}
+              {hasClaimed ? <span className="text-green-500">You have already claimed</span>: 'Your amazing result will give you'}
               <div className="text-2xl">{(score * AMOUNT_PER_EASY_QUIZ).toFixed(2)} {TOKEN_SYMBOL}</div>
               <div className="mt-3">
                 {!hasClaimed ? <Button
