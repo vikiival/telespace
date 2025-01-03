@@ -172,7 +172,7 @@ interface SlotMachineProps {
 }
 
 // Define the main App component
-export default function SlotMachine() {
+export default function SlotMachine({ onSuccess } : SlotMachineProps) {
   const [winner, setWinner] = useState<boolean | null>(null);
   const matches = useRef<number[]>([]);
   const childRefs = [
@@ -199,11 +199,13 @@ export default function SlotMachine() {
         match === matches.current[0]
       );
       setWinner(isWinner);
-      getRand().then(setRandom).catch(console.error)
+      
 
       if (isWinner) {
-        // onSuccess(matches.current[0]);
+        onSuccess(matches.current[0]);
       }
+
+      getRand().then(setRandom).catch(console.error)
     }
   };
 
@@ -224,7 +226,7 @@ export default function SlotMachine() {
                 index={index}
                 key={index}
                 onFinish={finishHandler}
-                timer={1000 + index * 400}
+                timer={2500 + index * 400}
                 ref={ref}
                 entropy={random.entropy}
               />
