@@ -14,6 +14,10 @@ export async function POST(req: NextRequest, res: NextResponse) {
     return NextResponse.json(claim);
   } catch (error) {
     console.log(error);
-    return NextResponse.json(null, { status: 400 });
+    return NextResponse.json({
+      success: false,
+      claim: null,
+      message: (error as any).message
+    }, { status: 400 });
   }
 }
