@@ -18,7 +18,7 @@ import { useMemo, useState } from "react"
 
 export function QuizResults() {
   const initDataState = useSignal(initData.state);
-  const { score, resetQuiz, answers, claimReward } = useQuizStore();
+  const { score, resetQuiz, answers, claimReward, claim } = useQuizStore();
   const { connected, logIn, walletAddress, sign, chainId } = useAuth();
 
   const userId = useMemo<number | undefined>(() => {
@@ -101,10 +101,10 @@ export function QuizResults() {
           }
           footer={
             <Section.Footer centered>
-              Your amazing result will give you
+              {claim ? 'You have already claimed' : 'Your amazing result will give you' }
               <div className="text-2xl">{(score * AMOUNT_PER_EASY_QUIZ).toFixed(2)} {TOKEN_SYMBOL}</div>
               <div className="mt-3">
-                <Button
+                {!claim  ? <Button
                   loading={loading}
                   onClick={connected ? () => handleClaim() : logIn}
                   mode="bezeled"
@@ -113,7 +113,7 @@ export function QuizResults() {
                   {connected
                     ? "Claim tokens now"
                     : "Connect OKX Wallet to claim"}
-                </Button>
+                </Button>: null }
               </div>
             </Section.Footer>
           }
