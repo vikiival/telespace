@@ -15,6 +15,7 @@ import { Page } from "@/components/Page"
 import { QuizOption } from "@/components/Quiz/QuizOption/QuizOption"
 import { questions } from "@/lib/data/questions"
 import { useQuizStore } from "@/lib/store/quiz-store"
+import { WalletConnection } from "@/components/Wallet/WalletConnection"
 import tonSvg from '../../../app/_assets/spacecoin.svg'; //"../../../_assets/spacecoin.svg";
 
 export function EasyQuiz() {
@@ -52,19 +53,7 @@ export function EasyQuiz() {
             </Section.Footer>
           }
         >
-          <Link href="/wallet">
-            <Cell
-              before={
-                <Image
-                  src={tonSvg.src}
-                  style={{ backgroundColor: "#007AFF" }}
-                />
-              }
-              subtitle="Connect your ETH wallet"
-            >
-              SPC Connect
-            </Cell>
-          </Link>
+          <WalletConnection />
         </Section>
 
         <Section
