@@ -30,7 +30,7 @@ export default function ConnectButton() {
       <>
         <Title>{walletAddress}</Title>
         <div>{chainId}</div>
-        <Button onClick={logOut}>BYEEEE</Button>
+        <Button onClick={logOut}>🚪👋</Button>
       </>
     )
   }
