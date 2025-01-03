@@ -1,7 +1,8 @@
-"use client";
+"use client"
 
 import {
   Button,
+  Cell,
   List,
   Section
 } from "@telegram-apps/telegram-ui"
@@ -15,20 +16,21 @@ import { useQuizStore } from "@/lib/store/quiz-store"
 import { AMOUNT_PER_EASY_QUIZ, TOKEN_SYMBOL } from "@/constants"
 import { initData, useSignal } from "@telegram-apps/sdk-react"
 import { useMemo, useState } from "react"
+import { Link } from "@/components/Link/Link"
 
 export function QuizResults() {
-  const initDataState = useSignal(initData.state);
-  const { score, resetQuiz, answers, claimReward, claim } = useQuizStore();
-  const { connected, logIn, walletAddress, sign, chainId } = useAuth();
+  const initDataState = useSignal(initData.state)
+  const { score, resetQuiz, answers, claimReward, claim } = useQuizStore()
+  const { connected, logIn, walletAddress, sign, chainId } = useAuth()
 
   const userId = useMemo<number | undefined>(() => {
     return initDataState && initDataState.user
       ? initDataState.user.id
-      : undefined;
-  }, [initDataState]);
+      : undefined
+  }, [initDataState])
 
   // const [signed, setSigned] = useState<string| any>('');
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false)
 
   const handleClaim = async () => {
     try {
@@ -65,10 +67,10 @@ export function QuizResults() {
     } catch (error) {
       setLoading(false)
     }
-  } 
+  }
 
   const rows = questions.map((question, index) => {
-    const isCorrect = answers[index] === question.correctAnswer;
+    const isCorrect = answers[index] === question.correctAnswer
     return {
       title: question.question,
       value: (
@@ -85,8 +87,8 @@ export function QuizResults() {
           </div>
         </>
       ),
-    };
-  });
+    }
+  })
 
   return (
     <Page>
@@ -99,10 +101,10 @@ export function QuizResults() {
           }
           footer={
             <Section.Footer centered>
-              {claim ? 'You have already claimed' : 'Your amazing result will give you' }
+              {claim ? 'You have already claimed' : 'Your amazing result will give you'}
               <div className="text-2xl">{(score * AMOUNT_PER_EASY_QUIZ).toFixed(2)} {TOKEN_SYMBOL}</div>
               <div className="mt-3">
-                {!claim  ? <Button
+                {!claim ? <Button
                   loading={loading}
                   onClick={connected ? () => handleClaim() : logIn}
                   mode="bezeled"
@@ -111,7 +113,11 @@ export function QuizResults() {
                   {connected
                     ? "Claim tokens now"
                     : "Connect OKX Wallet to claim"}
-                </Button>: null }
+                </Button> : <Link href="/">
+                  <Button>
+                    Explore other quests
+                  </Button>
+                </Link>}
               </div>
             </Section.Footer>
           }
@@ -140,5 +146,5 @@ export function QuizResults() {
         </Section>
       </List>
     </Page>
-  );
+  )
 }
