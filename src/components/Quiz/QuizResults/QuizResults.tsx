@@ -54,13 +54,17 @@ export function QuizResults() {
           signature,
         }),
       })
-      console.log(signature, result)
-      setSigned(signature)
-      // claimReward(result)
+
+      if (result.ok) {
+        const json = await result.json()
+        console.log(json.claim)
+        setSigned(json.claim)
+        // claimReward(json.claim)
+      }
+
+      setLoading(false)
     } catch (error) {
       setSigned((error as any).message as any)
-
-    } finally {
       setLoading(false)
     }
   } 
