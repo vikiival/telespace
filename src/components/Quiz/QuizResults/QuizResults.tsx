@@ -20,7 +20,7 @@ import { Link } from "@/components/Link/Link"
 
 export function QuizResults() {
   const initDataState = useSignal(initData.state)
-  const { score, resetQuiz, answers, claimReward, claim } = useQuizStore()
+  const { score, resetQuiz, answers, claimReward, hasClaimed } = useQuizStore()
   const { connected, logIn, walletAddress, sign, chainId } = useAuth()
 
   const userId = useMemo<number | undefined>(() => {
@@ -101,10 +101,10 @@ export function QuizResults() {
           }
           footer={
             <Section.Footer centered>
-              {claim ? 'You have already claimed' : 'Your amazing result will give you'}
+              {hasClaimed ? 'You have already claimed' : 'Your amazing result will give you'}
               <div className="text-2xl">{(score * AMOUNT_PER_EASY_QUIZ).toFixed(2)} {TOKEN_SYMBOL}</div>
               <div className="mt-3">
-                {!claim ? <Button
+                {!hasClaimed ? <Button
                   loading={loading}
                   onClick={connected ? () => handleClaim() : logIn}
                   mode="bezeled"
@@ -114,7 +114,7 @@ export function QuizResults() {
                     ? "Claim tokens now"
                     : "Connect OKX Wallet to claim"}
                 </Button> : <Link href="/">
-                  <Button>
+                  <Button stretched>
                     Explore other quests
                   </Button>
                 </Link>}
