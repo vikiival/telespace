@@ -27,7 +27,7 @@ export function QuizResults() {
       : undefined;
   }, [initDataState]);
 
-  const [signed, setSigned] = useState<string| any>('');
+  // const [signed, setSigned] = useState<string| any>('');
   const [loading, setLoading] = useState<boolean>(false);
 
   const handleClaim = async () => {
@@ -58,13 +58,11 @@ export function QuizResults() {
       if (result.ok) {
         const json = await result.json()
         console.log(json.claim)
-        setSigned(json.claim)
-        // claimReward(json.claim)
+        claimReward(json.claim)
       }
 
       setLoading(false)
     } catch (error) {
-      setSigned((error as any).message as any)
       setLoading(false)
     }
   } 
@@ -96,7 +94,7 @@ export function QuizResults() {
         <Section
           header={
             <Section.Header>
-              Quiz Easy Results (signature: {signed})
+              Quiz Easy Results
             </Section.Header>
           }
           footer={
