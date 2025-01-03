@@ -35,7 +35,7 @@ export function QuizResults() {
       setLoading(true)
       const payload = {
         address: walletAddress,
-        amount: (score * AMOUNT_PER_EASY_QUIZ).toFixed(2),
+        amount: Number((score * AMOUNT_PER_EASY_QUIZ).toFixed(2)),
         answers: answers,
         score,
         task: 'easy-quiz',
