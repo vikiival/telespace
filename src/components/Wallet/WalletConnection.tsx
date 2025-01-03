@@ -23,7 +23,7 @@ export function WalletConnection() {
         }
         subtitle={`Connected on ${chainId ? chains[chainId] : 'Unknown'}`}
         after={
-          <Button onClick={logOut}>BYEEEE</Button>
+          <Button mode='outline' onClick={logOut}>🚪👋</Button>
         }
       >
         { walletAddress }
