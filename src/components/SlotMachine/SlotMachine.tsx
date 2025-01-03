@@ -226,7 +226,7 @@ export default function SlotMachine({ onSuccess } : SlotMachineProps) {
                 index={index}
                 key={index}
                 onFinish={finishHandler}
-                timer={2500 + index * 400}
+                timer={2000 + index * 400}
                 ref={ref}
                 entropy={random.entropy}
               />
