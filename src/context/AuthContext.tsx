@@ -9,6 +9,8 @@ import {
 	toRpc,
 	TransactionEnvelopeEip1559,
 } from "ox/TransactionEnvelopeEip1559";
+import { TOKEN_SYMBOL, TOKEN_ADDRESS } from "@/constants"
+
 
 interface AuthContextType {
 	connected: boolean;
@@ -64,8 +66,8 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
 			const session = await client.openModal({
 				namespaces: {
 					eip155: {
-						chains: ["eip155:8453"],
-						defaultChain: "8453",
+						chains: ["eip155:84532"],
+						defaultChain: "84532",
 					},
 				},
 			});
@@ -87,6 +89,7 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
 			setConnected(true);
 
 			// await getBalance();
+			getTokenBalance().then(console.log)
 		} catch (error) {
 			console.error("Failed to connect wallet:", error);
 		}
@@ -103,6 +106,43 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
 			console.error("Failed to disconnect wallet:", error);
 		}
 	};
+
+	const getTokenBalance = async () => {
+		if (!client) return;
+		const data = {
+			"method": "eth_call",
+			"params": [
+				{
+					"to": TOKEN_ADDRESS,
+					"data": "0x70a08231" + walletAddress?.slice(2).padStart(64, "0"),
+				},
+				"latest",
+			],
+		};
+
+		try {
+			const balanceResult = await client.request<Hex>(data, chainId);
+			const parsed = toBigInt(balanceResult);
+			setBalance(parsed);
+		} catch (error) {
+			console.error("Failed to disconnect wallet:", error);
+		}
+	}
+
+	const watchAsset = async () => {
+		const data = {
+			"method": "wallet_watchAsset",
+			"params": [{
+					"type": "ERC20",
+					"options": {
+							"address": TOKEN_ADDRESS,
+							"symbol": TOKEN_SYMBOL,
+							"image": "https://avatars.githubusercontent.com/u/172411359?s=200&v=4",
+							"decimals": 18
+					}
+			}]
+		}
+	}
 
 	// const getBalance = async () => {
 	// 	if (!client) return;
