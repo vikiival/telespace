@@ -16,6 +16,7 @@ interface AuthContextType {
 	connected: boolean;
 	walletAddress: string | null;
 	chainId: string | undefined;
+	balance: BigInt;
 	logIn: () => Promise<void>;
 	logOut: () => Promise<void>;
 	sign: (data: string) => Promise<string | undefined>;
@@ -192,6 +193,7 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
 				connected,
 				walletAddress,
 				chainId,
+				balance,
 				logIn,
 				logOut,
 				sign

@@ -20,7 +20,7 @@ export default function Home() {
   const t = useTranslations("i18n");
   const initDataState = useSignal(initData.state);
   const { isComplete: isEasyQuizDone } = useQuizStore();
-  const { connected } = useAuth();
+  const { connected, balance } = useAuth();
   
 
   const userName = useMemo<string | undefined>(() => {
@@ -40,6 +40,7 @@ export default function Home() {
             <Section.Footer centered>
               {connected ? "Your poins" : "Connect your wallet to see your points"}
               <div className="text-2xl">{connected ? '0' : '-'} {TOKEN_SYMBOL}</div>
+              <div className="text-2xl">{connected ? balance.toString() : '-'} {TOKEN_SYMBOL}</div>
             </Section.Footer>
           }
         >
