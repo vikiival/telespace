@@ -4,19 +4,17 @@
 // https://github.com/onflow/Telegram-Integration-Quickstarts/tree/main/Course_3_Connect_OKX_Wallet_Flow_EVM
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { OKXUniversalConnectUI, THEME } from "@okxconnect/ui";
-import { Hex, fromString, toBigInt } from "ox/Hex";
-import {
-	toRpc,
-	TransactionEnvelopeEip1559,
-} from "ox/TransactionEnvelopeEip1559";
+import { fromString, toBigInt } from "ox/Hex";
 import { TOKEN_SYMBOL, TOKEN_ADDRESS } from "@/constants"
+import { RpcRequest } from "ox"
+import { formatEther } from "ox/Value"
 
 
 interface AuthContextType {
 	connected: boolean;
 	walletAddress: string | null;
 	chainId: string | undefined;
-	balance: BigInt;
+	balance: string;
 	logIn: () => Promise<void>;
 	logOut: () => Promise<void>;
 	sign: (data: string) => Promise<string | undefined>;
@@ -31,7 +29,7 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
 	const [walletAddress, setWalletAddress] = useState<string | null>(null);
 	const [chainId, setChainId] = useState<string | undefined>(undefined);
 	const [connected, setConnected] = useState(false);
-	const [balance, setBalance] = useState(BigInt(0));
+	const [balance, setBalance] = useState('');
 
 	useEffect(() => {
 		const initClient = async () => {
@@ -67,8 +65,8 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
 			const session = await client.openModal({
 				namespaces: {
 					eip155: {
-						chains: ["eip155:84532"],
-						defaultChain: "84532",
+						chains: ["eip155:8453"],
+						defaultChain: "8453",
 					},
 				},
 			});
@@ -110,20 +108,27 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
 
 	const getTokenBalance = async () => {
 		if (!client) return;
-		const data = {
-			"method": "eth_call",
+		const request = RpcRequest.from({
+			id: 0, 
+  		method: 'eth_call', 
 			"params": [
 				{
 					"to": TOKEN_ADDRESS,
-					"data": "0x70a08231" + walletAddress?.slice(2).padStart(64, "0"),
-				},
+					"data": `0x70a08231${walletAddress?.slice(2).padStart(64, "0")}`,
+				}, 
 				"latest",
 			],
-		};
+		});
 
 		try {
-			const balanceResult = await client.request<Hex>(data, chainId);
-			const parsed = toBigInt(balanceResult);
+			const response = await fetch('https://sepolia.base.org', {
+				body: JSON.stringify(request),
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			}).then((res) => res.json())
+			const parsed = formatEther(toBigInt(response.result));
 			setBalance(parsed);
 		} catch (error) {
 			console.error("Failed to disconnect wallet:", error);
