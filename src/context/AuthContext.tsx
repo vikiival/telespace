@@ -115,11 +115,13 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
 			"params": [
 				{
 					"to": TOKEN_ADDRESS,
-					"data": `0x70a08231${walletAddress?.slice(2).padStart(64, "0")}`,
+					"data": ("0x70a08231" + '0xbff2b0e21c0d7c8901273e6214d004d86e84f6be'.slice(2).padStart(64, "0")) as any,
 				}, 
 				"latest",
 			],
 		});
+
+		
 
 		try {
 			const response = await fetch('https://sepolia.base.org', {
@@ -129,8 +131,8 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
 					'Content-Type': 'application/json',
 				},
 			}).then((res) => res.json())
-			// const parsed = formatEther(toBigInt(response.result));
-			setBalance(response.result);
+			const parsed = formatEther(toBigInt(response.result));
+			setBalance(parsed);
 		} catch (error) {
 			console.error("Failed to disconnect wallet:", error);
 			setBalance((error as any).message)
