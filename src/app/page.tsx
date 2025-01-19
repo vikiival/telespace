@@ -29,12 +29,6 @@ export default function Home() {
       : undefined;
   }, [initDataState]);
 
-  // useEffect(() => {
-  //   if (connected ) {
-  //     getBalance();
-  //   }
-  // }, [connected]);
-
   return (
     <Page back={false}>
       <List>
@@ -45,7 +39,6 @@ export default function Home() {
           footer={
             <Section.Footer centered>
               {connected ? "Your poins" : "Connect your wallet to see your points"}
-              <div className="text-2xl">{connected ? '0' : '-'} {TOKEN_SYMBOL}</div>
               <div className="text-2xl">{connected ? balance : '-'} {TOKEN_SYMBOL}</div>
             </Section.Footer>
           }

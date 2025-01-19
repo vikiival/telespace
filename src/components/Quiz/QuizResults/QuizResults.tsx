@@ -21,7 +21,7 @@ import { Link } from "@/components/Link/Link"
 export function QuizResults() {
   const initDataState = useSignal(initData.state)
   const { score, resetQuiz, answers, claimReward, hasClaimed } = useQuizStore()
-  const { connected, logIn, walletAddress, sign, chainId } = useAuth()
+  const { connected, logIn, walletAddress, sign, chainId, getBalance } = useAuth()
 
   const userId = useMemo<number | undefined>(() => {
     return initDataState && initDataState.user
@@ -61,6 +61,9 @@ export function QuizResults() {
         const json = await result.json()
         console.log(json.claim)
         claimReward(json.claim)
+        if (walletAddress) {
+          getBalance(walletAddress).then(console.log)
+        }
       }
 
       setLoading(false)
