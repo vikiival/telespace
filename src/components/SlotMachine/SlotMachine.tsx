@@ -86,7 +86,7 @@ const Spinner = React.forwardRef(
     });
 
     const setStartPosition = () =>
-      ((Math.floor(randomness * 9)) * iconHeight) * -1;
+      ((Math.floor(randomness * 9 * index)) * iconHeight) * -1;
     const startPosition = useRef<number>(setStartPosition());
 
     const reset = useCallback(() => {
@@ -181,9 +181,9 @@ export default function SlotMachine({ onSuccess } : SlotMachineProps) {
     useRef<{ reset: () => void }>(null),
   ];
   const [random, setRandom] = useState<EntropyState>({
-    entropy: 0.7857853486088646,
-    randomness: '0x0c05b604912a2d5ca053c9e6e63b123f40bb1f00763103ac44c2513a6ec94ef5',
-    round: 13563267
+    entropy: 0.9981417097136096,
+    randomness: '0x7c5f1ce3b3b870e7a7ee2e70d466ae26a3d41d68cecf1f3c1e21ba915c018d60',
+    round: 14834579
   });
 
   const handleClick = () => {
@@ -226,7 +226,7 @@ export default function SlotMachine({ onSuccess } : SlotMachineProps) {
                 index={index}
                 key={index}
                 onFinish={finishHandler}
-                timer={1500 + index * 400}
+                timer={1000 + index * 400}
                 ref={ref}
                 entropy={random.entropy}
               />
