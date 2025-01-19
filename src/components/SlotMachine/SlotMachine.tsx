@@ -86,7 +86,7 @@ const Spinner = React.forwardRef(
     });
 
     const setStartPosition = () =>
-      ((Math.floor(randomness * 9 * index)) * iconHeight) * -1;
+      ((Math.floor((randomness + index) * 9)) * iconHeight) * -1;
     const startPosition = useRef<number>(setStartPosition());
 
     const reset = useCallback(() => {
@@ -226,7 +226,7 @@ export default function SlotMachine({ onSuccess } : SlotMachineProps) {
                 index={index}
                 key={index}
                 onFinish={finishHandler}
-                timer={1000 + index * 400}
+                timer={1500 + index * 400}
                 ref={ref}
                 entropy={random.entropy}
               />
