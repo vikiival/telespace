@@ -132,7 +132,9 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
 			setBalance(parsed);
 		} catch (error) {
 			console.error("Failed to disconnect wallet:", error);
+			setBalance((error as any).message)
 		}
+	
 	}
 
 	const watchAsset = async () => {
