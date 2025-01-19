@@ -18,7 +18,7 @@ interface AuthContextType {
 	logIn: () => Promise<void>;
 	logOut: () => Promise<void>;
 	sign: (data: string) => Promise<string | undefined>;
-	getBalance: () => Promise<void>;
+	getBalance: (address: string) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -121,8 +121,6 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
 			],
 		});
 
-		
-
 		try {
 			const response = await fetch('https://sepolia.base.org', {
 				body: JSON.stringify(request),
@@ -135,7 +133,7 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
 			setBalance(parsed);
 		} catch (error) {
 			console.error("Failed to disconnect wallet:", error);
-			setBalance((error as any).message)
+			setBalance('0')
 		}
 	
 	}
