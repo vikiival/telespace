@@ -40,7 +40,7 @@ export default function Home() {
             <Section.Footer centered>
               {connected ? "Your poins" : "Connect your wallet to see your points"}
               <div className="text-2xl">{connected ? '0' : '-'} {TOKEN_SYMBOL}</div>
-              <div className="text-2xl">{connected ? balance.toString() : '-'} {TOKEN_SYMBOL}</div>
+              <div className="text-2xl">{connected ? balance : '-'} {TOKEN_SYMBOL}</div>
             </Section.Footer>
           }
         >

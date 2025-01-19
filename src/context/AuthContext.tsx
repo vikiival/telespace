@@ -29,7 +29,7 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
 	const [walletAddress, setWalletAddress] = useState<string | null>(null);
 	const [chainId, setChainId] = useState<string | undefined>(undefined);
 	const [connected, setConnected] = useState(false);
-	const [balance, setBalance] = useState('');
+	const [balance, setBalance] = useState('0');
 
 	useEffect(() => {
 		const initClient = async () => {
