@@ -18,6 +18,7 @@ interface AuthContextType {
 	logIn: () => Promise<void>;
 	logOut: () => Promise<void>;
 	sign: (data: string) => Promise<string | undefined>;
+	getBalance: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -201,6 +202,7 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
 				walletAddress,
 				chainId,
 				balance,
+				getBalance: getTokenBalance,
 				logIn,
 				logOut,
 				sign

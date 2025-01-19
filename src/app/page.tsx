@@ -8,7 +8,7 @@ import { Link } from "@/components/Link/Link";
 import { LocaleSwitcher } from "@/components/LocaleSwitcher/LocaleSwitcher";
 import { Page } from "@/components/Page";
 
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import tonSvg from "./_assets/spacecoin.svg";
 import { WalletConnection } from "@/components/Wallet/WalletConnection"
 import { TOKEN_SYMBOL } from "@/constants"
@@ -20,7 +20,7 @@ export default function Home() {
   const t = useTranslations("i18n");
   const initDataState = useSignal(initData.state);
   const { isComplete: isEasyQuizDone } = useQuizStore();
-  const { connected, balance } = useAuth();
+  const { connected, balance, getBalance } = useAuth();
   
 
   const userName = useMemo<string | undefined>(() => {
@@ -28,6 +28,12 @@ export default function Home() {
       ? initDataState.user.username
       : undefined;
   }, [initDataState]);
+
+  useEffect(() => {
+    if (connected ) {
+      getBalance();
+    }
+  }, [connected]);
 
   return (
     <Page back={false}>
