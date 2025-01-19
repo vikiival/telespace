@@ -129,8 +129,8 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
 					'Content-Type': 'application/json',
 				},
 			}).then((res) => res.json())
-			const parsed = formatEther(toBigInt(response.result));
-			setBalance(parsed);
+			// const parsed = formatEther(toBigInt(response.result));
+			setBalance(response.result);
 		} catch (error) {
 			console.error("Failed to disconnect wallet:", error);
 			setBalance((error as any).message)

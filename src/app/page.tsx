@@ -29,11 +29,11 @@ export default function Home() {
       : undefined;
   }, [initDataState]);
 
-  useEffect(() => {
-    if (connected ) {
-      getBalance();
-    }
-  }, [connected]);
+  // useEffect(() => {
+  //   if (connected ) {
+  //     getBalance();
+  //   }
+  // }, [connected]);
 
   return (
     <Page back={false}>
