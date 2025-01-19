@@ -89,7 +89,7 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
 			setConnected(true);
 
 			// await getBalance();
-			getTokenBalance().then(console.log)
+			getTokenBalance(address).then(console.log)
 		} catch (error) {
 			console.error("Failed to connect wallet:", error);
 		}
@@ -107,15 +107,15 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
 		}
 	};
 
-	const getTokenBalance = async () => {
-		if (!client) return;
+	const getTokenBalance = async (address: string) => {
+		if (!client || !address) return;
 		const request = RpcRequest.from({
 			id: 0, 
   		method: 'eth_call', 
 			"params": [
 				{
 					"to": TOKEN_ADDRESS,
-					"data": ("0x70a08231" + '0xbff2b0e21c0d7c8901273e6214d004d86e84f6be'.slice(2).padStart(64, "0")) as any,
+					"data": ("0x70a08231" + address.slice(2).padStart(64, "0")) as any,
 				}, 
 				"latest",
 			],
