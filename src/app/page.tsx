@@ -55,7 +55,7 @@ export default function Home() {
         >
           <Link href={"/quiz-easy"}>
             <Cell disabled={isEasyQuizDone} className="m-4"
-             after={isEasyQuizDone ? "COMPLETED" : "50 SPCQ"} subtitle="Learn them more about SpaceCoin.xyz">
+             after={isEasyQuizDone ? "COMPLETED" : "50 SPCQ"} subtitle="Learn them more about SpaceComputer">
              {isEasyQuizDone && "✅" } QUIZ (Easy) 
             </Cell>
           </Link>
@@ -71,7 +71,7 @@ export default function Home() {
           </Link>
         </Section>
         <Section header={t("header")} footer={t("footer")}>
-          <Link href="https://x.com/Spacecoin_xyz">
+          <Link href="https://x.com/SpaceComputerIO">
             <Cell
               before={
                 <Image

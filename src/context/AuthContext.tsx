@@ -38,7 +38,7 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
 				const uiClient = await OKXUniversalConnectUI.init({
 					dappMetaData: {
 						icon: "https://avatars.githubusercontent.com/u/172411359?s=200&v=4",
-						name: "SpaceCoin",
+						name: "SpaceComputer",
 					},
 					actionsConfiguration: {
 						returnStrategy: "none", // Or 'tg://resolve'

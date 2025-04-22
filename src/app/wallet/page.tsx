@@ -11,7 +11,7 @@ import "./styles.css"
 const universalUi = OKXUniversalConnectUI.init({
   dappMetaData: {
     icon: "https://avatars.githubusercontent.com/u/172411359?s=200&v=4",
-    name: "SpaceCoin",
+    name: "SpaceComputer",
   },
   actionsConfiguration: {
     returnStrategy: "tg://resolve",

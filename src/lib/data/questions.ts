@@ -3,13 +3,13 @@ import { Question } from '../types';
 export const questions: Question[] = [
   {
     id: 1,
-    question: "What are the two main layers of Spacecoin's architecture?",
+    question: "What are the two main layers of SpaceComputer's architecture?",
     options: ["Orbital and Ground layers", "Celestial and Uncelestial layers", "Primary and Secondary layers"],
     correctAnswer: 1
   },
   {
     id: 2,
-    question: "Why is Spacecoin considered more secure against tampering than Earth-based systems?",
+    question: "Why is SpaceComputer considered more secure against tampering than Earth-based systems?",
     options: [
       "Because it uses better encryption",
       "Because it’s physically unreachable in orbit and immune to physical tampering",
@@ -19,7 +19,7 @@ export const questions: Question[] = [
   },
   {
     id: 3,
-    question: "Which of these combinations represents correct use cases for Spacecoin?",
+    question: "Which of these combinations represents correct use cases for SpaceComputer?",
     options: [
       "Email service, web hosting, data storage",
       "Secure marketplace, cryptographic key management, secure computations",
@@ -29,13 +29,13 @@ export const questions: Question[] = [
   },
   {
     id: 4,
-    question: "What is the main satellite network that Spacecoin relies on for communication?",
+    question: "What is the main satellite network that SpaceComputer relies on for communication?",
     options: ["Starlink", "Iridium", "Kuiper"],
     correctAnswer: 1
   },
   {
     id: 5,
-    question: "How does Spacecoin handle secure deletion of data differently from Earth-based systems?",
+    question: "How does SpaceComputer handle secure deletion of data differently from Earth-based systems?",
     options: [
       "Uses better encryption methods",
       "Physical deletion is more secure as the storage is physically inaccessible",
@@ -45,7 +45,7 @@ export const questions: Question[] = [
   },
   {
     id: 6,
-    question: "What are the three grades of finality that Spacecoin offers for transactions?",
+    question: "What are the three grades of finality that SpaceComputer offers for transactions?",
     options: [
       "Initial, middle, final",
       "Pre-finality with backup, and full finality",
@@ -55,7 +55,7 @@ export const questions: Question[] = [
   },
   {
     id: 7,
-    question: "What makes Spacecoin more resistant to denial of service attacks?",
+    question: "What makes SpaceComputer more resistant to denial of service attacks?",
     options: [
       "Advanced firewall systems",
       "Due to being in orbit and having distributed satellite network",
@@ -65,7 +65,7 @@ export const questions: Question[] = [
   },
   {
     id: 8,
-    question: "How does Spacecoin plan to serve as a marketplace for satellite services?",
+    question: "How does SpaceComputer plan to serve as a marketplace for satellite services?",
     options: [
       "By providing a settlement layer for payments and digital asset trading",
       "By creating a traditional e-commerce platform",
@@ -85,13 +85,13 @@ export const questions: Question[] = [
   },
   {
     id: 10,
-    question: "What type of operating system do the Spacecoin satellites use?",
+    question: "What type of operating system do the SpaceComputer satellites use?",
     options: ["Windows", "Hardened Linux OS", "Custom proprietary OS"],
     correctAnswer: 1
   },
   {
     id: 11,
-    question: "Why does Spacecoin use a two-tier architecture?",
+    question: "Why does SpaceComputer use a two-tier architecture?",
     options: [
       "To balance security (orbit) with processing capacity (Earth)",
       "To reduce operational costs",
@@ -101,7 +101,7 @@ export const questions: Question[] = [
   },
   {
     id: 12,
-    question: "How does Spacecoin plan to handle communication between Earth and its satellite network?",
+    question: "How does SpaceComputer plan to handle communication between Earth and its satellite network?",
     options: [
       "Through fiber optic cables",
       "Through ground stations and the Iridium satellite network",
@@ -111,7 +111,7 @@ export const questions: Question[] = [
   },
   {
     id: 13,
-    question: "What makes Spacecoin particularly suitable for handling sensitive information?",
+    question: "What makes SpaceComputer particularly suitable for handling sensitive information?",
     options: [
       "Advanced encryption methods",
       "Its physical isolation in space and tamper-proof nature",
@@ -131,7 +131,7 @@ export const questions: Question[] = [
   },
   {
     id: 15,
-    question: "How does Spacecoin plan to evolve its communication capabilities?",
+    question: "How does SpaceComputer plan to evolve its communication capabilities?",
     options: [
       "By building more ground stations",
       "By incorporating additional networks like Kuiper and Starlink",
