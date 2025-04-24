@@ -1,17 +1,17 @@
-# Telegram Mini Apps Next.js Template
+# Telespace
 
-This template demonstrates how developers can implement a web application on the
-Telegram Mini Apps platform using the following technologies and libraries:
+Telegram Mini Apps for [@SpaceComputer](https://spacecomputer.io/) project.
 
-- [Next.js](https://nextjs.org/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [TON Connect](https://docs.ton.org/develop/dapps/ton-connect/overview)
-- [@telegram-apps SDK](https://docs.telegram-mini-apps.com/packages/telegram-apps-sdk/2-x)
-- [Telegram UI](https://github.com/Telegram-Mini-Apps/TelegramUI)
+### Available pages
 
-> The template was created using [pnpm](https://pnpm.io/). Therefore, it is
-> required to use it for this project as well. Using other package managers, you
-> will receive a corresponding error.
+- **Easy Quiz**: A simple quiz game where users can answer questions and earn rewards.
+- **Slot Machine**: A fun slot machine game where users can spin the reels and win prizes.
+
+### Available APIs
+
+- **Cointracker** API from claiming tokens from the ERC-20 smart contract. API is deployed as `Cloudflare Worker`.
+- **OrbitPort** Randomness API from SpaceComputer.
+
 
 ## Install Dependencies
 
@@ -27,8 +27,7 @@ pnpm install
 This project contains the following scripts:
 
 - `dev`. Runs the application in development mode.
-- `dev:https`. Runs the application in development mode using self-signed SSL
-  certificate.
+- `tunnel`. Creates cloudflare tunnel for local development.
 - `build`. Builds the application for production.
 - `start`. Starts the Next.js server in production mode.
 - `lint`. Runs [eslint](https://eslint.org/) to ensure the code quality meets
@@ -95,17 +94,16 @@ requires an HTTPS link.
 
 This template already provides a solution.
 
-To retrieve a link with the HTTPS protocol, consider using the `dev:https`
+To retrieve a link with the HTTPS protocol, consider using the `tunnel`
 script:
 
 ```bash
-$ pnpm run dev:https
+$ pnpm run tunnel
 
-▲ Next.js 14.2.3
-- Local:        https://localhost:3000
+◐ Starting cloudflared tunnel to http://localhost:3000
 
-✓ Starting...
-✓ Ready in 2.4s
+ℹ Waiting for tunnel URL...
+✔ Tunnel ready at https://whatever-space-computer-doing.trycloudflare.com
 ```
 
 Visiting the `Local` link (`https://localhost:3000` in this example) in your
@@ -118,8 +116,7 @@ secure. Click the `Proceed to localhost (unsafe)` button to continue and view
 the application.
 
 Once the application is displayed correctly, submit the
-link `https://127.0.0.1:3000` (`https://localhost:3000` is considered as invalid
-by BotFather) as the Mini App link to [@BotFather](https://t.me/botfather).
+link `https://whatever-space-computer-doing.trycloudflare.com` as the Mini App link to [@BotFather](https://t.me/botfather).
 Then, navigate to [https://web.telegram.org/k/](https://web.telegram.org/k/),
 find your bot, and launch the Telegram Mini App. This approach provides the full
 development experience.
